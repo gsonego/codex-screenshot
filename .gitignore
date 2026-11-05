@@ -1,0 +1,16 @@
+/build/
+*.exe
+*.pdb
+*.obj
+*.log
+/.agents/
+/.codex/
+/.vs/
+/.vscode/
+/captures/
+/screenshots/
+.env
+.env.*
+!.env.example
+Thumbs.db
+Desktop.ini

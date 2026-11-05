@@ -1,0 +1,19 @@
+{
+  "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
+  "name": "desktop-print",
+  "version": "0.1.0",
+  "description": "Captura a tela do Windows e retorna uma imagem para a conversa, quando solicitado.",
+  "extensions": {
+    "com.openai": {
+      "requires_local_executor": true,
+      "interface": {
+        "displayName": "Desktop Print",
+        "shortDescription": "Tire um print e compartilhe na conversa.",
+        "developerName": "Guilherme",
+        "category": "Productivity",
+        "capabilities": ["Read"],
+        "defaultPrompt": ["Tire um print do meu monitor principal e mostre aqui."]
+      }
+    }
+  }
+}
