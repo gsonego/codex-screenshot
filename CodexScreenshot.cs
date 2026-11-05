@@ -111,24 +111,24 @@ internal static class Program {
         if (args.Length == 1 && args[0] == "--self-test") {
             Rectangle r = RegionPicker.Between(new Point(180, 90), new Point(30, 10));
             bool focusChecks = ChatFocus.IsChatProcess("ChatGPT") && ChatFocus.IsChatProcess("codex")
-                && !ChatFocus.IsChatProcess("DesktopPrint") && !ChatFocus.IsChatProcess("msedge")
+                && !ChatFocus.IsChatProcess("CodexScreenshot") && !ChatFocus.IsChatProcess("msedge")
                 && !ChatFocus.IsChatProcess("codex-code-mode-host") && !ChatFocus.IsChatProcess(null)
                 && !ChatFocus.IsChatWindow(IntPtr.Zero);
             return r == new Rectangle(30, 10, 150, 80) && focusChecks ? 0 : 1;
         }
         bool first;
-        using (Mutex mutex = new Mutex(true, "Local\\GuilhermeDesktopPrintButton", out first)) {
+        using (Mutex mutex = new Mutex(true, "Local\\CodexScreenshotButton", out first)) {
             if (!first) return 0;
             Native.SetProcessDPIAware();
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new PrintButton());
+            Application.Run(new ScreenshotButton());
         }
         return 0;
     }
 }
 
-internal sealed class PrintButton : Form {
+internal sealed class ScreenshotButton : Form {
     private readonly NotifyIcon tray;
     private readonly ToolTip tip;
     private readonly System.Windows.Forms.Timer pasteTimer;
@@ -155,8 +155,8 @@ internal sealed class PrintButton : Form {
             return p;
         }
     }
-    public PrintButton() {
-        Text = "Desktop Print";
+    public ScreenshotButton() {
+        Text = "Codex Screenshot";
         Icon = Icon.ExtractAssociatedIcon(Application.ExecutablePath);
         FormBorderStyle = FormBorderStyle.None;
         ShowInTaskbar = false;
@@ -178,7 +178,7 @@ internal sealed class PrintButton : Form {
         menu.Items.Add("Ocultar botao", null, delegate { userHidden = true; Hide(); });
         menu.Items.Add("Sair", null, delegate { Close(); });
         ContextMenuStrip = menu;
-        tray = new NotifyIcon { Icon = Icon, Text = "Desktop Print - Ctrl+Alt+S", Visible = true, ContextMenuStrip = menu };
+        tray = new NotifyIcon { Icon = Icon, Text = "Codex Screenshot - Ctrl+Alt+S", Visible = true, ContextMenuStrip = menu };
         tray.DoubleClick += delegate { userHidden = false; UpdateVisibility(); };
         pasteTimer = new System.Windows.Forms.Timer { Interval = 100 };
         pasteTimer.Tick += PasteWhenReady;
@@ -268,7 +268,7 @@ internal sealed class PrintButton : Form {
         }
         FinishCapture();
     }
-    private void Notify(string text) { tray.ShowBalloonTip(3500, "Desktop Print", text, ToolTipIcon.Info); }
+    private void Notify(string text) { tray.ShowBalloonTip(3500, "Codex Screenshot", text, ToolTipIcon.Info); }
     protected override void Dispose(bool disposing) {
         if (disposing) {
             Native.UnregisterHotKey(Handle, 1);

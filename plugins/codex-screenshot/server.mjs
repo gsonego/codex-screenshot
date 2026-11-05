@@ -40,7 +40,7 @@ export async function handle(request, capture = captureDesktop) {
   if (request.method === 'initialize') return reply({
     protocolVersion: versions.includes(request.params?.protocolVersion) ? request.params.protocolVersion : versions[0],
     capabilities: { tools: {} },
-    serverInfo: { name: 'desktop-print', version: '0.1.0' },
+    serverInfo: { name: 'codex-screenshot', version: '0.2.0' },
     instructions: 'Capture only when the user asks. Return the image in your reply if the host supports it. This tool supplies image context; it does not insert attachments into the message composer.'
   });
   if (request.method === 'ping') return reply({});

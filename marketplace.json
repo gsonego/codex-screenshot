@@ -1,10 +1,10 @@
 {
-  "name": "guilherme-local",
-  "interface": { "displayName": "Plugins do Guilherme" },
+  "name": "codex-screenshot-local",
+  "interface": { "displayName": "Codex Screenshot Local" },
   "plugins": [
     {
-      "name": "desktop-print",
-      "source": { "source": "local", "path": "./plugins/desktop-print" },
+      "name": "codex-screenshot",
+      "source": { "source": "local", "path": "./plugins/codex-screenshot" },
       "policy": { "installation": "AVAILABLE", "authentication": "ON_INSTALL" },
       "category": "Productivity"
     }

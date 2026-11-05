@@ -1,96 +1,97 @@
-# Desktop Print
+# Codex Screenshot
 
-Um botão flutuante para recortar a tela e anexar a imagem à mensagem do **ChatGPT ou Codex no Windows**.
+A floating screenshot button that captures a screen region and pastes it into your **ChatGPT or Codex message on Windows**.
 
-<img src="assets/camera.png" alt="Ícone de câmera do Desktop Print" width="96">
+<img src="assets/camera.png" alt="Codex Screenshot camera icon" width="96">
 
-Clique em **Print**, selecione uma área e o recorte é colado automaticamente na caixa de mensagem que estava em foco. Você revisa e envia a mensagem.
+Click **Print**, select an area, and the image is automatically pasted into the message field that had focus. Review your attachment and send the message when you are ready.
 
-## Recursos
+## Features
 
-- Botão visível somente enquanto o aplicativo desktop ChatGPT ou Codex está em foco.
-- Seleção retangular em um ou vários monitores.
-- Colagem automática na mensagem, sem enviar por conta própria.
-- Botão reposicionável pelos três pontos à direita.
-- Atalho opcional **Ctrl+Alt+S**, disponível quando não estiver ocupado por outro aplicativo.
-- **Esc** ou botão direito para cancelar o recorte.
-- Ícone na bandeja para ocultar, reativar ou fechar o utilitário.
+- Appears only while the ChatGPT or Codex desktop app has focus.
+- Captures rectangular regions across one or multiple monitors.
+- Pastes the image automatically without sending the message.
+- Can be repositioned using the three dots on the right side of the button.
+- Supports **Ctrl+Alt+S** when the shortcut is available.
+- Cancels selection with **Esc** or a right-click.
+- Includes a system tray menu to hide, re-enable, or quit the utility.
 
-## Compilar e abrir
+## Build and run
 
-Requisitos do botão: Windows com sessão de desktop ativa, Windows PowerShell 5.1 e compilador C# do .NET Framework em `%WINDIR%\Microsoft.NET\Framework64\v4.0.30319\csc.exe`.
+The floating button requires Windows with an active desktop session, Windows PowerShell 5.1, and the .NET Framework C# compiler at `%WINDIR%\Microsoft.NET\Framework64\v4.0.30319\csc.exe`.
 
-Na pasta do projeto, execute:
+Run these commands from the project directory:
 
 ```powershell
 powershell.exe -NoProfile -ExecutionPolicy Bypass -File .\Build-Button.ps1
-.\DesktopPrint.exe
+.\CodexScreenshot.exe
 ```
 
-O script gera o ícone, compila o programa e executa verificações de coordenadas e identificação dos aplicativos. Os executáveis são gerados localmente e não fazem parte do repositório.
+The build script generates the camera icon, compiles the application, and checks selection coordinates and application identification. Executables are generated locally and are not tracked in this repository.
 
-Se o botão já estiver aberto, use **Sair** no menu da bandeja e execute a compilação novamente para atualizar `DesktopPrint.exe`. A nova versão também fica em `build\DesktopPrint.exe`.
+If the utility is already running, quit it from its tray menu and run the build again to update `CodexScreenshot.exe`. The newly built executable is also available at `build\CodexScreenshot.exe`.
 
-## Usar
+## Usage
 
-1. Clique na caixa de mensagem do ChatGPT/Codex, deixando o cursor onde digitaria.
-2. Clique no botão **Print**.
-3. Arraste sobre a área desejada e solte o mouse.
-4. Confira a imagem anexada e envie a mensagem quando quiser.
+1. Click the message field in ChatGPT or Codex so the text cursor is active.
+2. Click the floating **Print** button.
+3. Drag to select the area you want to capture, then release the mouse button.
+4. Review the attached image and send your message.
 
-Arraste pelos três pontos à direita para posicionar o botão perto do chat. Ao trocar para outro programa, o botão se oculta em aproximadamente 150 ms; ao voltar, reaparece na mesma posição. O ícone da bandeja permanece disponível.
+Drag the three dots on the right side to move the button next to your chat. Switching to another application hides the button within approximately 150 ms. Returning to ChatGPT or Codex restores the button at the same position. The system tray icon remains available.
 
-O botão é um utilitário local separado: ele não modifica o menu **+** do aplicativo. O reconhecimento por foco se aplica aos processos desktop `ChatGPT` e `Codex`, não ao ChatGPT aberto em uma aba do navegador.
+This is a separate local utility; it does not modify the application's **+** menu. Focus detection recognizes the `ChatGPT` and `Codex` desktop processes. It does not detect ChatGPT tabs in a web browser.
 
-## Comportamento e limites
+## Behavior and limitations
 
-- O recorte substitui o conteúdo da área de transferência.
-- O botão não salva capturas no disco, não inicia com o Windows e não envia mensagens.
-- A colagem usa o campo que estava em foco antes da seleção. Clique na caixa de mensagem antes de capturar.
-- Se o foco mudar ou o Windows impedir a restauração da janela, o recorte fica copiado para você colar com **Ctrl+V**.
-- Aplicativos executados como administrador podem bloquear a colagem.
-- Conteúdo protegido, tela bloqueada ou sessão sem desktop interativo podem produzir uma captura preta ou erro.
-- A posição do botão é preservada ao alternar entre aplicativos, mas é reiniciada ao fechar e abrir o utilitário.
+- Capturing a region replaces the clipboard contents.
+- The floating button does not save screenshots to disk, start with Windows, or send messages.
+- Automatic pasting uses the field that had focus before selection. Click the message field before capturing.
+- If focus changes or Windows prevents the utility from restoring the destination window, the image remains on the clipboard for manual pasting with **Ctrl+V**.
+- Applications running as administrator may block automatic pasting.
+- Protected content, a locked screen, or a session without an interactive desktop may result in a black image or a capture error.
+- The button keeps its position when switching applications, but its position resets when the utility restarts.
+- The utility currently displays some messages and menu items in Portuguese.
 
-## Plugin MCP opcional
+## Optional MCP plugin
 
-O projeto também inclui uma ferramenta MCP para pedir ao assistente uma captura do monitor principal ou de todos os monitores. Essa ferramenta devolve uma imagem como resultado da chamada; ela oferece um fluxo diferente do botão de recorte.
+The project also includes an MCP tool for asking an assistant to capture the primary monitor or the entire desktop. This tool returns an image as its result and provides a different workflow from the floating region selector.
 
-Requisitos adicionais: Node.js 18 ou superior no `PATH` e Codex CLI para instalar o plugin. Não requer dependências npm, chave de API ou servidor remoto.
+Additional requirements: Node.js 18 or later on `PATH` and the Codex CLI to install the plugin. No npm dependencies, API key, or remote server are required.
 
 ```powershell
 powershell.exe -NoProfile -ExecutionPolicy Bypass -File .\Install.ps1
 ```
 
-O instalador registra o catálogo local `guilherme-local` e instala `desktop-print@guilherme-local`. Ele altera a configuração de plugins do usuário. Depois, abra uma nova conversa local; pode ser necessário reiniciar o aplicativo.
+The installer registers the local marketplace `codex-screenshot-local` and installs `codex-screenshot@codex-screenshot-local`. It updates the current user's plugin configuration. Open a new local conversation afterward; restarting the desktop app may be necessary.
 
-Para remover o plugin:
+To uninstall the plugin:
 
 ```powershell
-codex plugin remove desktop-print@guilherme-local
-codex plugin marketplace remove guilherme-local
+codex plugin remove codex-screenshot@codex-screenshot-local
+codex plugin marketplace remove codex-screenshot-local
 ```
 
-O arquivo `Copiar print.cmd` oferece ainda uma captura do monitor principal com atraso de três segundos e cópia para colagem manual.
+The `Copy screenshot.cmd` helper provides a primary-monitor capture after a three-second delay and copies it to the clipboard for manual pasting.
 
-## Estrutura
+## Project structure
 
-| Arquivo | Função |
+| File | Purpose |
 | --- | --- |
-| `PrintButton.cs` | Botão, recorte, controle de foco e colagem |
-| `Build-Button.ps1` | Geração do ícone, compilação e verificações |
-| `assets/` | Ícone da câmera em PNG e ICO |
-| `plugins/desktop-print/` | Manifesto, servidor MCP e captura PowerShell |
-| `tests/server.test.mjs` | Testes do protocolo MCP com imagens sintéticas |
-| `Install.ps1` | Instalação opcional do plugin MCP |
+| `CodexScreenshot.cs` | Floating button, region selection, focus detection, and automatic pasting |
+| `Build-Button.ps1` | Icon generation, compilation, and checks |
+| `assets/` | Camera icon in PNG and ICO formats |
+| `plugins/codex-screenshot/` | Plugin manifest, MCP server, and PowerShell capture script |
+| `tests/server.test.mjs` | MCP protocol tests using synthetic images |
+| `Install.ps1` | Optional MCP plugin installation |
 
-## Verificações
+## Checks
 
 ```powershell
 powershell.exe -NoProfile -ExecutionPolicy Bypass -File .\Build-Button.ps1
 node --test tests/server.test.mjs
 ```
 
-Os testes automatizados não capturam o desktop real. A seleção e a colagem foram verificadas manualmente no aplicativo; alterações nessa integração devem ser conferidas na interface do cliente.
+Automated tests do not capture the real desktop. Region selection and pasting have been manually verified in the desktop application. Changes to this integration should also be checked in the client interface.
 
-Este projeto é independente e não é um produto oficial da OpenAI.
+This is an independent project and is not an official OpenAI product.

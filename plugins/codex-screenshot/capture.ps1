@@ -11,11 +11,11 @@ try {
     Add-Type -AssemblyName System.Drawing
     Add-Type -TypeDefinition @'
 using System.Runtime.InteropServices;
-public static class DesktopPrintDpi {
+public static class CodexScreenshotDpi {
     [DllImport("user32.dll")] public static extern bool SetProcessDPIAware();
 }
 '@
-    [void][DesktopPrintDpi]::SetProcessDPIAware()
+    [void][CodexScreenshotDpi]::SetProcessDPIAware()
     if ($DelaySeconds -gt 0) { Start-Sleep -Seconds $DelaySeconds }
     if ($Target -eq 'all') {
         $bounds = [System.Windows.Forms.SystemInformation]::VirtualScreen
